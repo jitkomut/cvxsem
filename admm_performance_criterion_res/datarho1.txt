@@ -1,0 +1,9 @@
+admmresult_rho1_n50.mat
+admmresult_rho1_n100.mat
+admmresult_rho1_n200.mat
+admmresult_rho1_n300.mat
+admmresult_rho1_n400.mat
+admmresult_rho1_n500.mat
+admmresult_rho1_n600.mat
+admmresult_rho1_n700.mat
+admmresult_rho1_n800.mat
