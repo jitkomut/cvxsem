@@ -1,6 +1,8 @@
 # cvxsem
 Convex Formulation for Regularized Estimation of Structural Equation Models
 
+Developers: Anupon Pruttiakaravanich and Jitkomut Songsiri
+
 This project include proximal algorithms (ADMM and PPXA) to solve the confirmatory and sparse SEM (structural equation modelling). The algorithms are based on the analysis in the manuscript
 
 A. Pruttiakaravanich and J, Songsiri, Convex Formulation for Regularized Estimation of Structural Equation Models, Submitted to Signal Processing, 2019.
