@@ -1,0 +1,8 @@
+
+ABIDE fMRI data set is publicly available from
+
+http://fcon_1000.projects.nitrc.org/indi/abide/abide_I.html
+
+The data set here have been selected partially from the above link, and have pre-processed using their protocols.
+
+We use ABIDE fMRI data set for testing the formulation proposed in our research paper. 
