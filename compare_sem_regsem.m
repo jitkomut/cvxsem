@@ -24,12 +24,13 @@
 % 
 %% comparing with REGSEM
 clear; clc;
-addpath('../regsem_experiment')
-addpath('../regsem_experiment/result_from_matlab')
-addpath('../regsem_experiment/result_from_regsem')
+addpath('./regsem_experiment')
+addpath('./regsem_experiment/result_from_matlab')
+addpath('./regsem_experiment/result_from_regsem')
 
 load Atrue.mat
-load regsem_N1000_lin.mat
+load regsem_N100_lin.mat
+% load regsem_N1000_lin.mat
 
 q = 2;    r=4;    s=2;    t=4;
 n = q+r+s+t;
@@ -96,19 +97,16 @@ TNmean = mean(TN);
 FPmean = mean(FP);
 FNmean = mean(FN);
 
-TPR = TPmean./(TPmean + FNmean);
-FPR = FPmean./(FPmean + TNmean);
-% figure;
-plot(FPR,TPR,'-o')
-axis square;
-xlim([0 1])
-ylim([0 1])
-set(gca,'FontSize',15)
-hold on;
+TPRregsem = TPmean./(TPmean + FNmean);
+FPRregsem = FPmean./(FPmean + TNmean);
 
-%
+save result2plot_regsemN100 TPRregsem FPRregsem
+
+%% Load SEM results
 clear; clc;
-load rec_path_ex_1varnoise_N1000_linscale_100trial.mat
+load rec_path_ex_1varnoise_N100_linscale_100trial.mat
+% load rec_path_ex_1varnoise_N1000_linscale_100trial.mat
+
 
 num_trial = 100;
 num_candidate = 50;
@@ -137,23 +135,46 @@ for j=1:num_trial
     end
 end
 
-% plot ROC of result from MATLAB
 TPmean = mean(TP);
 TNmean = mean(TN);
 FPmean = mean(FP);
 FNmean = mean(FN);
 
-TPR = TPmean./(TPmean + FNmean);
-FPR = FPmean./(FPmean + TNmean);
+TPRsem = TPmean./(TPmean + FNmean);
+FPRsem = FPmean./(FPmean + TNmean);
+
+load result2plot_regsemN100
+
+save result2plot_regsemN100 TPRregsem FPRregsem TPRsem FPRsem
+
+%% Plot graph
+
+load result2plot_regsemN100
+
 % figure;
-plot(FPR,TPR,'-o')
-axis square;
-xlim([0 1])
-ylim([0 1])
-legend('regsem','sparse sem')
-xlabel('FPR')
-ylabel('TPR')
-title('ROC')
-set(gca,'FontSize',15)
-hold off;
+plot(FPRregsem,TPRregsem,'-+b',FPRsem,TPRsem,'-or','MarkerSize',12,'Linewidth',3)
+xlim([0 1]); ylim([0 1]);axis square
+xlabel('FPR');ylabel('TPR');title('ROC');
+legend('regsem','sparse SEM','location','southeast');
+ax = gca; ax.FontSize = 22; 
+% set(gcf, 'Position', get(0, 'Screensize'));
+ax = gca; [ax] = nowhitespace(ax);
+
+print -depsc compare_result_regsem_sparsesem_N100.eps
+savefig('compare_result_regsem_sparsesem_N100')
+
+%% Plotgraph N=1000
+load result2plot_regsemN1000
+
+% figure;
+plot(FPRregsem,TPRregsem,'-+b',FPRsem,TPRsem,'-or','MarkerSize',12,'Linewidth',3)
+xlim([0 1]); ylim([0 1]);axis square
+xlabel('FPR');ylabel('TPR');title('ROC');
+legend('regsem','sparse SEM','location','southeast');
+ax = gca; ax.FontSize = 22; 
+% set(gcf, 'Position', get(0, 'Screensize'));
+ax = gca; [ax] = nowhitespace(ax);
+
+print -depsc compare_result_regsem_sparsesem_N1000.eps
+savefig('compare_result_regsem_sparsesem_N1000')
 
